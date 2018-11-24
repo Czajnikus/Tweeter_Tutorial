@@ -19,30 +19,13 @@ def test_tweet_lenght():
         twitter.tweet('Tekst wiadomosci'*120)
     assert twitter.tweets == []
 
-
-def test_tweet_with_hashtag():
+@pytest.mark.parametrize('message, hashtag', (
+        ('Test #first message', 'first'),
+        ('#first Test message', 'first'),
+        ('Test message #first ', 'first'),
+        ('Test message #FIRST ', 'FIRST')
+))
+def test_tweet_with_hashtag(message, hashtag):
     twitter = Twitter()
-    message = 'Test #first message '
-    twitter.tweet(message)
-    assert 'first' in twitter.find_hashtag(message)
-
-def test_tweet_with_hashtag_on_beggining():
-    twitter = Twitter()
-    message = '#first Test message '
-    twitter.tweet(message)
-    assert 'first' in twitter.find_hashtag(message)
-
-def test_tweet_with_hashtag_on_ending():
-    twitter = Twitter()
-    message = 'Test message #first '
-    twitter.tweet(message)
-    assert 'first' in twitter.find_hashtag(message)
-
-def test_tweet_with_hashtag_upper():
-    twitter = Twitter()
-    message = 'Test message #FIRST '
-    twitter.tweet(message)
-    assert 'FIRST' in twitter.find_hashtag(message)
-
-
+    assert hashtag in twitter.find_hashtag(message)
 
