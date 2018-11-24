@@ -6,10 +6,10 @@ def test_initization():
 
 def test_message():
     twitter = Twitter()
-    twitter.tweet('dupa')
-    assert twitter.tweets == ['dupa']
+    twitter.tweet('Tekst wiadomosci')
+    assert twitter.tweets == ['Tekst wiadomosci']
 
 def test_tweet_lenght():
     twitter = Twitter()
-    twitter.tweet('dupa'*120)
-    assert twitter.tweets == ['dupa'*120]
+    twitter.tweet('Tekst wiadomosci'*120)
+    assert twitter.tweets == ['Tekst wiadomosci'*120]
