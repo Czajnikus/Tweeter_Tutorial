@@ -10,8 +10,7 @@ class Twitter(object):
     def tweet(self, message):
         if len(message) >= 161:
             raise Exception('To long')
-        elif len(message) < 161:
-            self.tweets.append(message)
+        self.tweets.append(message)
 
     def find_hashtag(self, message):
-        return re.findall('#(\w+) ', message)
+        return [m.lower() for m in re.findall('#(\w+)', message)]
