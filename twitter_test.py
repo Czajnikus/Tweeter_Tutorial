@@ -1,13 +1,15 @@
 import pytest
 from twitter import Twitter
 
+
 @pytest.fixture
 def twitter():
     twitter = Twitter()
-    return twitter
+    yield twitter
+    twitter.delete()
+
 
 def test_initization(twitter):
-    twitter = Twitter()
     assert twitter
 
 
@@ -21,6 +23,7 @@ def test_tweet_lenght(twitter):
         twitter.tweet('Tekst wiadomosci'*120)
     assert twitter.tweets == []
 
+
 @pytest.mark.parametrize('message, expected', (
         ('Test #first message', ['first']),
         ('#first Test message', ['first']),
@@ -30,4 +33,3 @@ def test_tweet_lenght(twitter):
 ))
 def test_tweet_with_hashtag(twitter, message, expected):
     assert twitter.find_hashtag(message) == expected
-
