@@ -32,6 +32,14 @@ def test_tweet_lenght(twitter):
         twitter.tweet('Tekst wiadomosci'*120)
     assert twitter.tweets == []
 
+def test_initialize_two_twitter_classes(backend):
+    twitter1 = Twitter(backend=backend)
+    twitter2 = Twitter(backend=backend)
+
+    twitter1.tweet('Test 1')
+    twitter1.tweet('Test 2')
+
+    assert twitter2.tweets == ['Test 1', 'Test 2']
 
 @pytest.mark.parametrize('message, expected', (
         ('Test #first message', ['first']),
