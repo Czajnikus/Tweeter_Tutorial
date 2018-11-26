@@ -2,11 +2,20 @@ import pytest
 from twitter import Twitter
 
 
-@pytest.fixture(params=[None, "test.txt"])
-def twitter(request):
-    twitter = Twitter(backend=request.param)
-    yield twitter
-    twitter.delete()
+
+@pytest.fixture
+def backend(tmpdir):
+    temp_file = tmpdir.join('test.txt')
+    temp_file.write('')
+    return temp_file
+
+@pytest.fixture(params=['list', 'backend'], name="twitter")
+def fixture_twitter(backend, request):
+    if request.param == 'list':
+        twitter = Twitter()
+    elif request.param == 'backend':
+        twitter = Twitter(backend=backend)
+    return twitter
 
 
 def test_initization(twitter):
