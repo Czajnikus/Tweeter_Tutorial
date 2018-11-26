@@ -32,4 +32,4 @@ def test_tweet_lenght(twitter):
         ('Test #FIRST message #SECOND', ['first', 'second'])
 ))
 def test_tweet_with_hashtag(twitter, message, expected):
-    assert twitter.find_hashtag(message) == expected
+    assert twitter.find_hashtags(message) == expected
